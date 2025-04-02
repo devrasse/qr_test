@@ -1,7 +1,8 @@
 import streamlit as st
 
 # URL에서 쿼리 파라미터 추출 (예: ?value=113)
-params = st.query_params()
+#params = st.query_params()
+params = st.experimental_get_query_params()
 input_value = params.get("value", [None])[0]  # "value" 키가 없으면 None 반환
 
 # 화면에 표시
