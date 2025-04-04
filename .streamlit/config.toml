@@ -1,18 +1,18 @@
 [theme]
+# Modern primary accent (vibrant but not overwhelming)
+primaryColor = '#6C5CE7'  # Sophisticated purple
 
-# Primary accent for interactive elements
-primaryColor = '#7792E3'
+# Dark background for main content (better contrast)
+backgroundColor = '#1E293B'  # Cool dark blue-gray
 
-# Background color for the main content area
-backgroundColor = '#273346'
+# Clean secondary background (light but not harsh)
+secondaryBackgroundColor = '#F8F9FA'  # Very light gray
 
-# Background color for sidebar and most interactive widgets
-secondaryBackgroundColor = '#B9F1C0'
-
-# Color used for almost all text
-textColor = '#FFFFFF'
-
-# Font family for all text in the app, except code blocks
-# Accepted values (serif | sans serif | monospace) 
-# Default: "sans serif"
+# High contrast text colors
+textColor = '#FFFFFF'  # White for dark backgrounds
 font = "sans serif"
+
+# Additional modern touches
+base = "dark"  # Dark mode by default
+widgetBackgroundColor = '#2D3748'  # Slightly lighter than bg
+widgetBorderColor = '#4A5568'  # Subtle border
