@@ -78,17 +78,18 @@ st.title("🌳 그늘막 고장 신고 시스템")
 #value = st.query_params.get("value", "기본값")  # 기본값은 옵션
 
 with st.form(key='report_form'):
-    param_value = st.query_params.get("value", "0")
-    value = st.text_input(
-        "관리번호*", 
-        value=param_value,  # URL 파라미터 있으면 기본값 설정
-        placeholder="ex) 100",
-        help="숫자만 입력해주세요"
-    )
+    param_value = st.query_params.get("value", "")
+    value = param_value
+    # value = st.text_input(
+    #     "관리번호*", 
+    #     value=param_value,  # URL 파라미터 있으면 기본값 설정
+    #     placeholder="ex) 100",
+    #     help="숫자만 입력해주세요"
+    # )
     #value = st.query_params.get("value", "기본값")  # 기본값은 옵션
     #value = st.text_input("번호*", placeholder="ex) 100", help="숫자만 입력해주세요")
     title = st.text_input("제목", value=f"{value}번 그늘막 고장 신고")
-    manage_num = st.text_input("관리번호", value=value)
+    #manage_num = st.text_input("관리번호", value=value)
     location = st.text_input("위치", value="인천광역시 미추흘구 독정이로 95")
     content = st.text_area("고장내용", value="그늘막 파손")
     location_image = st.file_uploader("위치도 이미지 업로드", type=['png', 'jpg', 'jpeg'])    
