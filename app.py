@@ -184,13 +184,13 @@ if manage_number:
 # 신고 폼 섹션
 with st.form(key='report_form'):
     st.subheader("📝 고장 신고 양식")
-    
+    value = manage_number
     # 선택된 그늘막 정보가 있는 경우 기본값 설정
     default_location = "인천광역시 미추흘구 독정이로 95"
     if manage_number and not selected_df.empty:
         default_location = selected_df.iloc[0]['설치장소명']
 
-    title = st.text_input("제목", value=f"{manage_number}번 그늘막 고장 신고" if manage_number else "")
+    title = st.text_input("제목", value=f"{value}번 그늘막 고장 신고" if value else "")
     location = st.text_input("위치", value= default_location)
     content = st.text_area("고장내용", value="그늘막 파손")
     location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
@@ -198,20 +198,20 @@ with st.form(key='report_form'):
     submitted = st.form_submit_button("📤 제출")
 
     if submitted:
-        if not manage_number or not location or not content:
+        if not value or not location or not content:
             st.warning("⚠️ 필수 항목(*)을 모두 입력해주세요!")
         else:
             email_content = f"""
             🚨 신고 접수 내용 🚨
             ► 제목: {title}
-            ► 관리번호: {manage_number}
+            ► 관리번호: {value}
             ► 위치: {location}
             ► 고장 내용: {content}
             """
             
             if send_email(f"[고장신고] {title}", email_content, location_image):
                 st.session_state.show_popup = True
-                st.success(f"✅ {manage_number}번 신고가 접수되었습니다!")
+                st.success(f"✅ {value}번 신고가 접수되었습니다!")
                 st.balloons()
             else:
                 st.error("❌ 메일 전송에 실패했습니다. 다시 시도해주세요.")
