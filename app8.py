@@ -132,7 +132,7 @@ def show_popup():
     st.markdown(POPUP_SCRIPT, unsafe_allow_html=True)
     st.markdown('<div class="popup">✅ 정상처리 되었습니다!</div>', unsafe_allow_html=True)
 
-def send_email(subject, email_content, attached_file=None):
+def send_email(subject, content, attached_file=None):
     sender_email = st.secrets["email"]["sender"]
     sender_password = st.secrets["email"]["password"]
     receiver_email = st.secrets["email"]["receiver"]
@@ -142,7 +142,7 @@ def send_email(subject, email_content, attached_file=None):
     msg['To'] = receiver_email
     msg['Subject'] = subject
 
-    msg.attach(MIMEText(email_content, 'html'))
+    msg.attach(MIMEText(content, 'plain'))
     
     if attached_file is not None:
         part = MIMEApplication(attached_file.read(), Name=attached_file.name)
@@ -163,10 +163,8 @@ def send_email(subject, email_content, attached_file=None):
 st.title("🌳 그늘막 고장 신고 시스템")
 df = load_data()
 
-param_value = st.query_params.get("value", "")
-#    value = param_value
 # 관리번호 입력 섹션
-manage_number =  param_value
+manage_number = st.text_input("관리번호를 입력해주세요*", placeholder="ex) 100", help="숫자만 입력해주세요")
 
 # 지도 표시
 if manage_number:
@@ -201,42 +199,12 @@ with st.form(key='report_form'):
             st.warning("⚠️ 필수 항목(*)을 모두 입력해주세요!")
         else:
             email_content = f"""
-                    <html>
-                        <body>
-                            <h2 style="color: #d9534f; border-bottom: 2px solid #ddd; padding-bottom: 10px;">🚨 신고 접수 내용</h2>
-                            <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; max-width: 600px; font-family: Arial, sans-serif; border: 1px solid #ddd;">
-                                <tr style="background-color: #f8f9fa;">
-                                    <th style="width: 30%; text-align: left; border: 1px solid #ddd; padding: 10px;">항목</th>
-                                    <th style="text-align: left; border: 1px solid #ddd; padding: 10px;">내용</th>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>제목</strong></td>
-                                    <td style="border: 1px solid #ddd; padding: 10px;">{title}</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>관리번호</strong></td>
-                                    <td style="border: 1px solid #ddd; padding: 10px;">{manage_number}</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>위치</strong></td>
-                                    <td style="border: 1px solid #ddd; padding: 10px;">{location}</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>고장 내용</strong></td>
-                                    <td style="border: 1px solid #ddd; padding: 10px;">{content}</td>
-                                </tr>
-                                <tr>
-                                    <td style="border: 1px solid #ddd; padding: 10px;"><strong>접수 시간</strong></td>
-                                    <td style="border: 1px solid #ddd; padding: 10px;">{pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S')}</td>
-                                </tr>
-                            </table>
-                            <p style="margin-top: 20px; font-size: 12px; color: #777; border-top: 1px solid #eee; padding-top: 10px;">
-                                ※ 이 메일은 그늘막 고장 신고 시스템에서 자동으로 발송되었습니다.
-                            </p>
-                        </body>
-                    </html>
-                """
-                    
+            🚨 신고 접수 내용 🚨
+            ► 제목: {title}
+            ► 관리번호: {manage_number}
+            ► 위치: {location}
+            ► 고장 내용: {content}
+            """
             
             if send_email(f"[고장신고] {title}", email_content, location_image):
                 st.session_state.show_popup = True
