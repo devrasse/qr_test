@@ -193,7 +193,7 @@ with st.form(key='report_form'):
     if manage_number and not selected_df.empty:
         default_location = selected_df.iloc[0]['설치장소명']
 
-    title = st.text_input("제목", value=f"{value}번 그늘막 고장 신고" if value else "")
+    title = st.text_input("제목", value=f"{manage_number}번 그늘막 고장 신고" if manage_number else "")
     location = st.text_input("위치", value= default_location)
     content = st.text_area("고장내용", value="그늘막 파손")
     location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
