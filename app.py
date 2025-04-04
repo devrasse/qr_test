@@ -75,7 +75,7 @@ def send_email(subject, content, attached_file=None):
 
 st.title("🌳 그늘막 고장 신고 시스템")
 
-#value = st.query_params.get("value", "기본값")  # 기본값은 옵션
+# value = st.query_params.get("value", "기본값")  # 기본값은 옵션
 
 with st.form(key='report_form'):
     value = st.text_input("번호*", placeholder="ex) 100", help="숫자만 입력해주세요")
