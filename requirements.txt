@@ -1,0 +1,7 @@
+streamlit==1.31.1
+folium==0.15.1
+streamlit-folium==0.15.1
+pandas==2.1.4
+openpyxl==3.1.2  # Excel 파일 읽기/쓰기 지원
+smtplib==0.0.1   # Python 표준 라이브러리 (기본 포함)
+email==6.0.1     # Python 표준 라이브러리 (기본 포함)
