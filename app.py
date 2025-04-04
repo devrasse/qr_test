@@ -83,18 +83,24 @@ def create_map(df):
     marker_lat = df.iloc[0]['위도']
     marker_lon = df.iloc[0]['경도']
     
-    map_obj = folium.Map(
+    # 지도 생성 시 중심 좌표를 마커 위치로 설정
+    map = folium.Map(
         location=[marker_lat, marker_lon], 
-        zoom_start=MAP_ZOOM_LEVEL,
+        zoom_start=17,  # 더 가까운 확대 수준
         min_zoom=10, 
         max_zoom=18
     )
 
-    # 베이스맵 추가
-    folium.TileLayer(
-        tiles='http://api.vworld.kr/req/wmts/1.0.0./CCA5DC05-6EDE-3BE5-A2DE-582966148562/Base/{{z}}/{{y}}/{{x}}.png',
-        attr='VWorldBase', name='VWorldBase', overlay=True, control=False, min_zoom=10
-    ).add_to(map_obj)
+    basemaps_vworld = {
+        'VWorldBase': folium.TileLayer(
+            tiles='http://api.vworld.kr/req/wmts/1.0.0./CCA5DC05-6EDE-3BE5-A2DE-582966148562/Base/{z}/{y}/{x}.png',
+            attr='VWorldBase', name='VWorldBase', overlay=True, control=False, min_zoom=10)
+    }
+    
+    basemaps_vworld['VWorldBase'].add_to(map)
+
+    style_function = lambda x: {"fillOpacity": 0, "opacity": 0.5}
+    tooltip_style = 'font-size: 13px; max-width: 500px;'
 
     # 마커 추가
     for _, row in df.iterrows():
@@ -117,9 +123,9 @@ def create_map(df):
             icon=folium.Icon(color='blue', prefix='fa', icon='umbrella'),
             popup=folium.Popup(popup_html, max_width=300),
             tooltip=f"<b>관리번호:</b> {row['관리번호']}<br>"
-        ).add_to(map_obj)
+        ).add_to(map)
 
-    return map_obj
+    return map
 
 def send_email(subject, email_content, attached_file=None):
     """이메일 전송 함수"""
@@ -171,8 +177,8 @@ def main():
 
     st.title("🌳 그늘막 고장 신고 시스템 🌳")
     df = load_data()
-    manage_number = st.query_params.get("value", "")
-
+    param_number = st.query_params.get("value", "")
+    manage_number = str(param_number)
     # 지도 표시
     if manage_number:
         try:

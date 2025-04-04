@@ -8,8 +8,9 @@ backgroundColor = '#1E293B'  # Cool dark blue-gray
 # Clean secondary background (light but not harsh)
 secondaryBackgroundColor = '#F8F9FA'  # Very light gray
 
-# High contrast text colors
+# Text colors (now dynamic for better contrast)
 textColor = '#FFFFFF'  # White for dark backgrounds
+secondaryTextColor = '#1E293B'  # Dark text for light backgrounds (input boxes)
 font = "sans serif"
 
 # Additional modern touches
