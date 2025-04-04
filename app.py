@@ -201,20 +201,20 @@ with st.form(key='report_form'):
     submitted = st.form_submit_button("📤 제출")
 
     if submitted:
-        if not value or not location or not content:
+        if not manage_number or not location or not content:
             st.warning("⚠️ 필수 항목(*)을 모두 입력해주세요!")
         else:
             email_content = f"""
             🚨 신고 접수 내용 🚨
             ► 제목: {title}
-            ► 관리번호: {value}
+            ► 관리번호: {manage_number}
             ► 위치: {location}
             ► 고장 내용: {content}
             """
             
             if send_email(f"[고장신고] {title}", email_content, location_image):
                 st.session_state.show_popup = True
-                st.success(f"✅ {value}번 신고가 접수되었습니다!")
+                st.success(f"✅ {manage_number}번 신고가 접수되었습니다!")
                 st.balloons()
             else:
                 st.error("❌ 메일 전송에 실패했습니다. 다시 시도해주세요.")
