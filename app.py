@@ -162,10 +162,10 @@ def send_email(subject, content, attached_file=None):
 # 메인 앱 구조
 st.title("🌳 그늘막 고장 신고 시스템 🌳")
 df = load_data()
-param_value = st.query_params.get("value", "")
+manage_number = st.query_params.get("value", "")
 #    value = param_value
 # 관리번호 입력 섹션
-manage_number =  str(param_value)
+#manage_number =  str(param_value)
 # 관리번호 입력 섹션
 #manage_number = st.text_input("관리번호를 입력해주세요*", placeholder="ex) 100", help="숫자만 입력해주세요")
 
@@ -184,7 +184,10 @@ if manage_number:
 # 신고 폼 섹션
 with st.form(key='report_form'):
     st.subheader("📝 고장 신고 양식")
-    value = manage_number
+    param_value = st.query_params.get("value", "")
+#    value = param_value
+# 관리번호 입력 섹션
+    manage_number =  param_value
     # 선택된 그늘막 정보가 있는 경우 기본값 설정
     default_location = "인천광역시 미추흘구 독정이로 95"
     if manage_number and not selected_df.empty:
