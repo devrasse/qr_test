@@ -165,7 +165,7 @@ df = load_data()
 param_value = st.query_params.get("value", "")
 #    value = param_value
 # 관리번호 입력 섹션
-manage_number =  param_value
+manage_number =  str(param_value)
 # 관리번호 입력 섹션
 #manage_number = st.text_input("관리번호를 입력해주세요*", placeholder="ex) 100", help="숫자만 입력해주세요")
 
