@@ -211,7 +211,7 @@ def main():
                     ("제목", title),
                     ("관리번호", manage_number),
                     ("위치", location),
-                    ("주소", selected_df.iloc[0]['설치장소명'])
+                    ("주소", selected_df.iloc[0]['주소'])
                     ("고장 내용", content),
                     ("접수 시간", pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'))
                 ]
