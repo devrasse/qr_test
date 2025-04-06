@@ -177,7 +177,8 @@ def main():
 
     st.title("🌳 그늘막 고장 신고 시스템 🌳")
     df = load_data()
-    manage_number = st.query_params.get("value", "")
+    param_number = st.query_params.get("value", "")
+    manage_number = param_number
     # 지도 표시
     if manage_number:
         try:
@@ -211,7 +212,6 @@ def main():
                     ("제목", title),
                     ("관리번호", manage_number),
                     ("위치", location),
-                    ("주소", selected_df['주소소'])
                     ("고장 내용", content),
                     ("접수 시간", pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'))
                 ]
