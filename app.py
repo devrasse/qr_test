@@ -202,7 +202,7 @@ def main():
         location = st.text_input("위치", value=default_location)
         content = st.text_area("고장내용", value="그늘막 파손")
         location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
-        
+        address = selected_df.iloc[0]['주소']
         if st.form_submit_button("📤 제출"):
             if not manage_number or not location or not content:
                 st.warning("⚠️ 필수 항목(*)을 모두 입력해주세요!")
@@ -211,7 +211,7 @@ def main():
                     ("제목", title),
                     ("관리번호", manage_number),
                     ("위치", location),
-                    ("주소", selected_df.iloc[0]['주소'])
+                    ("주소", address)
                     ("고장 내용", content),
                     ("접수 시간", pd.Timestamp.now().strftime('%Y-%m-%d %H:%M:%S'))
                 ]
