@@ -202,7 +202,7 @@ def main():
         title = st.text_input("제목", value=f"{manage_number}번 그늘막 고장 신고" if manage_number else "")
         location = st.text_input("위치", value=default_location)
         content = st.text_area("고장내용", value="그늘막 파손")
-        location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
+        #location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
 
         address = selected_df.iloc[0]['주소']
 
@@ -240,6 +240,13 @@ def main():
             st.image(image, caption="첨부된 고장 사진", use_column_width=True)
         except:
             st.error("이미지를 미리보기할 수 없습니다.")
+    # 📸 파일 업로더 (폼 밖)
+    location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
+
+# ⬇️ 이미지 미리보기 (업로드 직후 표시)
+    if location_image:
+        image = Image.open(location_image)
+        st.image(image, caption="첨부된 고장 사진", use_column_width=True)
 
     # 팝업 표시
     if st.session_state.get('show_popup'):
