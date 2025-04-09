@@ -204,8 +204,8 @@ def main():
         location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
         if location_image:
             st.image(location_image, caption="첨부된 고장 사진", use_column_width=True)
-        address = selected_df.iloc[0]['주소']
 
+        address = selected_df.iloc[0]['주소']
         if st.form_submit_button("📤 제출"):
             if not manage_number or not location or not content:
                 st.warning("⚠️ 필수 항목(*)을 모두 입력해주세요!")
