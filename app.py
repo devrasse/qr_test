@@ -6,6 +6,7 @@ from email.mime.application import MIMEApplication
 from streamlit_folium import st_folium
 import pandas as pd
 import folium
+from PIL import Image
 
 # 상수 정의
 POPUP_DURATION = 5000  # 5초
@@ -203,7 +204,8 @@ def main():
         content = st.text_area("고장내용", value="그늘막 파손")
         location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
         if location_image:
-            st.image(location_image, caption="첨부된 고장 사진", use_column_width=True)
+            image = Image.open(location_image)
+            st.image(image, caption="첨부된 고장 사진", use_column_width=True)
         address = selected_df.iloc[0]['주소']
 
         if st.form_submit_button("📤 제출"):
