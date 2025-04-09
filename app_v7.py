@@ -6,6 +6,7 @@ from email.mime.application import MIMEApplication
 from streamlit_folium import st_folium
 import pandas as pd
 import folium
+from PIL import Image
 
 # 상수 정의
 POPUP_DURATION = 5000  # 5초
@@ -190,6 +191,18 @@ def main():
         except Exception as e:
             st.error(f"지도 표시 중 오류 발생: {e}")
 
+    st.subheader("🖼️ 그늘막 고장 사진 업로드")
+    location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
+
+    if location_image:
+        try:
+            image = Image.open(location_image)
+            st.image(image, caption="첨부된 고장 사진", use_column_width=True)
+        except:
+            st.error("이미지를 미리보기할 수 없습니다.")
+    # 📸 파일 업로더 (폼 밖)
+
+
     # 신고 폼
     with st.form(key='report_form'):
         st.subheader("📝 고장 신고 양식")
@@ -201,11 +214,10 @@ def main():
         title = st.text_input("제목", value=f"{manage_number}번 그늘막 고장 신고" if manage_number else "")
         location = st.text_input("위치", value=default_location)
         content = st.text_area("고장내용", value="그늘막 파손")
-        location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
-        if location_image:
-            st.image(location_image, caption="첨부된 고장 사진", use_column_width=True)
+        #location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
 
         address = selected_df.iloc[0]['주소']
+
         if st.form_submit_button("📤 제출"):
             if not manage_number or not location or not content:
                 st.warning("⚠️ 필수 항목(*)을 모두 입력해주세요!")
@@ -233,8 +245,7 @@ def main():
                     st.balloons()
                 else:
                     st.error("❌ 메일 전송에 실패했습니다. 다시 시도해주세요.")
-
-    # 팝업 표시
+        # 팝업 표시
     if st.session_state.get('show_popup'):
         show_popup()
         st.session_state.show_popup = False
