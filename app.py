@@ -234,6 +234,9 @@ def main():
                 else:
                     st.error("❌ 메일 전송에 실패했습니다. 다시 시도해주세요.")
 
+
+    location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
+
     if location_image:
         try:
             image = Image.open(location_image)
@@ -241,12 +244,6 @@ def main():
         except:
             st.error("이미지를 미리보기할 수 없습니다.")
     # 📸 파일 업로더 (폼 밖)
-    location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
-
-# ⬇️ 이미지 미리보기 (업로드 직후 표시)
-    if location_image:
-        image = Image.open(location_image)
-        st.image(image, caption="첨부된 고장 사진", use_column_width=True)
 
     # 팝업 표시
     if st.session_state.get('show_popup'):
