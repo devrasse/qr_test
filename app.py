@@ -86,7 +86,7 @@ def create_map(df):
     # 지도 생성 시 중심 좌표를 마커 위치로 설정
     map = folium.Map(
         location=[marker_lat, marker_lon], 
-        zoom_start=17,  # 더 가까운 확대 수준
+        zoom_start=16,  # 더 가까운 확대 수준
         min_zoom=10, 
         max_zoom=18
     )
