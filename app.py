@@ -202,8 +202,8 @@ def main():
         location = st.text_input("위치", value=default_location)
         content = st.text_area("고장내용", value="그늘막 파손")
         location_image = st.file_uploader("그늘막 파손 사진 업로드", type=['png', 'jpg', 'jpeg'])
-        if location_image:
-            st.image(location_image, caption="첨부된 고장 사진", use_column_width=True)
+        # if location_image:
+        #     st.image(location_image, caption="첨부된 고장 사진", use_column_width=True)
 
         address = selected_df.iloc[0]['주소']
         if st.form_submit_button("📤 제출"):
